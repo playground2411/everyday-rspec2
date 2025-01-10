@@ -20,5 +20,10 @@ FactoryBot.define do
     trait :due_2days_ago do
       due_on { 2.day.ago }
     end
+
+    # メモ月のプロジェクト
+    trait :with_notes do
+      after(:create) { |project| create_list(:note, 5, project: project) }
+    end
   end
 end
