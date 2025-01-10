@@ -16,5 +16,9 @@ FactoryBot.define do
     factory :project_due_tomorrow do
       due_on { 1.day.from_now }
     end
+
+    trait :due_2days_ago do
+      due_on { 2.day.ago }
+    end
   end
 end

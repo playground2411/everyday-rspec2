@@ -62,6 +62,11 @@ RSpec.describe Project, type: :model do
       project = FactoryBot.create(:project_due_tomorrow)
       expect(project).to_not be_late
     end
+
+    fit "締切日が2日前なら遅延していること" do
+      project = FactoryBot.create(:project, :due_2days_ago)
+      expect(project).to be_late
+    end
   end
 
 end
