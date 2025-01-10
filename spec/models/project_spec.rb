@@ -58,7 +58,7 @@ RSpec.describe Project, type: :model do
       expect(project).to_not be_late
     end
 
-    fit "締切日が未来ならスケジュール通りであること" do
+    it "締切日が未来ならスケジュール通りであること" do
       project = FactoryBot.create(:project_due_tomorrow)
       expect(project).to_not be_late
     end
