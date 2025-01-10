@@ -46,4 +46,22 @@ RSpec.describe Project, type: :model do
 
     expect(other_project).to be_valid
   end
+
+  describe "遅延ステータス" do
+    it "締切日が過ぎていれば遅延していること" do
+      project = FactoryBot.create(:project_due_yesterday)
+      expect(project).to be_late
+    end
+
+    it "締切日が今日ならスケジュール通りであること" do
+      project = FactoryBot.create(:project_due_today)
+      expect(project).to_not be_late
+    end
+
+    fit "締切日が未来ならスケジュール通りであること" do
+      project = FactoryBot.create(:project_due_tomorrow)
+      expect(project).to_not be_late
+    end
+  end
+
 end
