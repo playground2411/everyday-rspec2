@@ -85,17 +85,34 @@ RSpec.describe ProjectsController, type: :controller do
         @user = FactoryBot.create(:user)
         @project = FactoryBot.create(:project, owner: @user)
       end
-      it "更新されていること" do
-        project_params = FactoryBot.attributes_for(
-          :project,
-          name: "Changed by Test!"
-        )
-        sign_in @user
-        patch :update, params: {
-          id: @project.id,
-          project: project_params
-        }
-        expect(@project.reload.name).to eq("Changed by Test!")
+      context "有効な属性値の場合" do
+        it "更新されていること" do
+          project_params = FactoryBot.attributes_for(
+            :project,
+            name: "Changed by Test!"
+          )
+          sign_in @user
+          patch :update, params: {
+            id: @project.id,
+            project: project_params
+          }
+          expect(@project.reload.name).to eq("Changed by Test!")
+        end
+      end
+
+      context "無効な属性値の場合" do
+        fit "更新されていないこと" do
+          project_params = FactoryBot.attributes_for(
+            :project,
+            name: nil
+          )
+          sign_in @user
+          patch :update, params: {
+            id: @project.id,
+            project: project_params
+          }
+          expect(@project.reload.name).to_not eq(nil)
+        end
       end
     end
 
