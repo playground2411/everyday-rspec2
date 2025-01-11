@@ -9,6 +9,7 @@ RSpec.describe "Projects", type: :system do
     user = FactoryBot.create(:user)
 
     visit root_path
+    puts "保存場所はここ => #{save_page}"
     click_link "Sign in"
     fill_in "Email", with: user.email
     fill_in "Password", with: user.password
