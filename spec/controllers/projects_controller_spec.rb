@@ -49,6 +49,23 @@ RSpec.describe ProjectsController, type: :controller do
       end
     end
 
+    context "認証済みの他ユーザーとして" do
+      before do
+        @user_b = FactoryBot.create(:user)
+      end
+      it "302レスポンスを返すこと" do
+        sign_in @user_b
+        get :show, params: { id: @project.id }
+        expect(response).to have_http_status(302)
+      end
+
+      it "ホーム画面にリダイレクトすること" do
+        sign_in @user_b
+        get :show, params: { id: @project.id }
+        expect(response).to redirect_to("/")
+      end
+    end
+
     context "ゲスト・ユーザーとして" do
       it "302レスポンスを返すこと" do
         get :show, params: { id: @project.id }
