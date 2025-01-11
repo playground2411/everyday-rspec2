@@ -5,7 +5,7 @@ RSpec.describe "Projects", type: :system do
     driven_by(:rack_test)
   end
 
-  fscenario "user creates a new project" do
+  scenario "user creates a new project" do
     user = FactoryBot.create(:user)
 
     visit root_path
