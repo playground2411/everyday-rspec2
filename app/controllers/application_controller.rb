@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  # ここで全てのcontroller, actionに抜け漏れなく認証を設定してる
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
