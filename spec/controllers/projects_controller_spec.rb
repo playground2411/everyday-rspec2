@@ -78,4 +78,30 @@ RSpec.describe ProjectsController, type: :controller do
       end
     end
   end
+
+  describe "#update" do
+    context "認証済みのユーザーとして" do
+      before do
+        @user = FactoryBot.create(:user)
+        @project = FactoryBot.create(:project, owner: @user)
+      end
+      it "更新されていること" do
+        project_params = FactoryBot.attributes_for(
+          :project,
+          name: "Changed by Test!"
+        )
+        sign_in @user
+        patch :update, params: {
+          id: @project.id,
+          project: project_params
+        }
+        expect(@project.reload.name).to eq("Changed by Test!")
+      end
+    end
+
+    context "ゲスト・ユーザーとして" do
+      it "302レスポンスを返すこと"
+      it "サインイン画面にリダイレクトすること"
+    end
+  end
 end
