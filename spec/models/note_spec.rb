@@ -20,7 +20,7 @@ RSpec.describe Note, type: :model do
   end
 
   describe "search message for a term" do
-    let(:note1) {
+    let!(:note1) {
       FactoryBot.create(
         :note,
         project:,
@@ -28,7 +28,7 @@ RSpec.describe Note, type: :model do
         message: "This is the first note."
       )
     }
-    let(:note2) {
+    let!(:note2) {
       FactoryBot.create(
         :note,
         project:,
@@ -36,7 +36,7 @@ RSpec.describe Note, type: :model do
         message: "This is the second note.",
       )
     }
-    let(:note3) {
+    let!(:note3) {
       FactoryBot.create(
         :note,
         project:,
@@ -54,6 +54,7 @@ RSpec.describe Note, type: :model do
     context "when no match is found" do
       it "returns an empty collection" do
         expect(Note.search("message")).to be_empty
+        expect(Note.count).to eq 3
       end
     end
   end
