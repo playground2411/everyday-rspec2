@@ -4,7 +4,7 @@ RSpec.describe "Projects", type: :system do
   scenario "user creates a new project" do
     user = FactoryBot.create(:user)
 
-    include LoginSupport
+    sign_in_as user
 
     expect {
       click_link "New Project"
